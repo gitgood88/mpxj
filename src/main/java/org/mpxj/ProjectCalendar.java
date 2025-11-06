@@ -1238,6 +1238,20 @@ public class ProjectCalendar extends ProjectCalendarDays implements ProjectEntit
    }
 
    /**
+    * Retrieve a list of tasks which use this calendar.
+    *
+    * @return list of tasks
+    */
+   public List<Task> getTasks()
+   {
+      return Collections.unmodifiableList(
+         m_context.getProjects().stream()
+         .flatMap(p -> p.getTasks().stream())
+         .filter(t -> m_uniqueID.equals(t.getCalendarUniqueID()))
+         .collect(Collectors.toList()));
+   }
+
+   /**
     * Retrieve a list of the resources which use this calendar.
     *
     * @return list of resources
