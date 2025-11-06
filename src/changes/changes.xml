@@ -5,8 +5,10 @@
 		<author email="jon@timephased.com">Jon Iles</author>
 	</properties>
 	<body>
-		<release date="unreleased" version="14.6.0">
+		<release date="unreleased" version="15.0.0">
             <action dev="joniles" type="update">Add support for the Project attribute Activity Default Calendar Unique ID.</action>
+            <action dev="joniles" type="update">Added the `ProjectCalendar#getDefault()` method. This returns true if the current calendar is the default calendar for the project file (e.g. MPP files) or project database (e.g. P6 database).</action>
+            <action dev="joniles" type="update">Added the `ProjectCalendar#setDefault()` method. Calling this method sets the calendar as the default for the project file or project database.</action>
 		</release>
 		<release date="2025-10-22" version="14.5.2">
             <action dev="joniles" type="update">Fix an issue reading secondary constraint dates and finish constraint dates from Open Plan BK3 files.</action>

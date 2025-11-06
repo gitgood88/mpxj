@@ -84,11 +84,21 @@ public class ProjectCalendar extends ProjectCalendarDays implements ProjectEntit
       }
    }
 
+   /**
+    * Retrieves the parent ProjectContext for this calendar.
+    *
+    * @return parent project context
+    */
    public ProjectContext getProjectContext()
    {
       return m_context;
    }
 
+   /**
+    * Returns true if this is the default calendar for the project file/database.
+    *
+    * @return true if this is the default calendar
+    */
    public boolean getDefault()
    {
       if (m_temporaryCalendar)
@@ -100,6 +110,9 @@ public class ProjectCalendar extends ProjectCalendarDays implements ProjectEntit
       return defaultCalendarUniqueID != null && defaultCalendarUniqueID.equals(m_uniqueID);
    }
 
+   /**
+    * Set the current calendar as the default for the project file/database.
+    */
    public void setDefault()
    {
       m_context.getCalendars().setDefaultCalendarUniqueID(m_uniqueID);
