@@ -1769,15 +1769,22 @@ public class ProjectCalendar extends ProjectCalendarDays implements ProjectEntit
    }
 
    /**
-    * Retrieve a list of calendars derived from this calendar. Where project-specific calen
-    * @param project
-    * @return
+    * Retrieve a list of calendars derived from this calendar. This will only include
+    * prject-specific calendars relevant to the support project.
+    *
+    * @param project ProjectFile instance representing the project of interest
+    * @return list of derived calendars
     */
    public List<ProjectCalendar> getDerivedCalendarsForProject(ProjectFile project)
    {
       return Collections.unmodifiableList(getDerivedCalendarStream().filter(c -> c.getType() != CalendarType.PROJECT || c.getProjectUniqueID().equals(project.getProjectProperties().getUniqueID())).collect(Collectors.toList()));
    }
 
+   /**
+    * Determine if this calendar is the parent of any derived calendars.
+    *
+    * @return true if this calendar is the parent of any derived calendars
+    */
    public boolean isParent()
    {
       return getDerivedCalendarStream().findAny().isPresent();
