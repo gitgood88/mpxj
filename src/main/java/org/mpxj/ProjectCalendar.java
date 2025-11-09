@@ -1759,7 +1759,7 @@ public class ProjectCalendar extends ProjectCalendarDays implements ProjectEntit
    }
 
    /**
-    * Retrieve a list of derived calendars.
+    * Retrieve a list of calendars derived from this calendar.
     *
     * @return list of derived calendars
     */
@@ -1768,6 +1768,11 @@ public class ProjectCalendar extends ProjectCalendarDays implements ProjectEntit
       return Collections.unmodifiableList(getDerivedCalendarStream().collect(Collectors.toList()));
    }
 
+   /**
+    * Retrieve a list of calendars derived from this calendar. Where project-specific calen
+    * @param project
+    * @return
+    */
    public List<ProjectCalendar> getDerivedCalendarsForProject(ProjectFile project)
    {
       return Collections.unmodifiableList(getDerivedCalendarStream().filter(c -> c.getType() != CalendarType.PROJECT || c.getProjectUniqueID().equals(project.getProjectProperties().getUniqueID())).collect(Collectors.toList()));
