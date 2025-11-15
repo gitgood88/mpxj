@@ -717,11 +717,51 @@ public final class ProjectFile implements ChildTaskContainer, ChildResourceConta
     * numbered baselines. The list will contain null
     * if a particular baseline has not been set.
     *
-    * @return list of baselines
-    */
-   public List<ProjectFile> getBaselines()
-   {
+   * @return list of baselines
+   */
+  public List<ProjectFile> getBaselines()
+  {
       return Arrays.asList(m_baselines);
+  }
+
+   /**
+    * Retrieve metadata describing each baseline slot.
+    *
+    * @return list of baseline definitions (entries may be null if metadata was not supplied)
+    */
+   public List<BaselineDefinition> getBaselineDefinitions()
+   {
+      return Arrays.asList(m_baselineDefinitions);
+   }
+
+   /**
+    * Retrieve metadata for a specific baseline slot.
+    *
+    * @param index slot index (0-10)
+    * @return baseline definition or null
+    */
+   public BaselineDefinition getBaselineDefinition(int index)
+   {
+      if (index < 0 || index >= m_baselineDefinitions.length)
+      {
+         throw new IllegalArgumentException(index + " is not a valid baseline index");
+      }
+      return m_baselineDefinitions[index];
+   }
+
+   /**
+    * Store metadata for a specific baseline slot.
+    *
+    * @param index slot index (0-10)
+    * @param definition baseline definition
+    */
+   public void setBaselineDefinition(int index, BaselineDefinition definition)
+   {
+      if (index < 0 || index >= m_baselineDefinitions.length)
+      {
+         throw new IllegalArgumentException(index + " is not a valid baseline index");
+      }
+      m_baselineDefinitions[index] = definition;
    }
 
    /**
@@ -1094,6 +1134,7 @@ public final class ProjectFile implements ChildTaskContainer, ChildResourceConta
    private final DataLinkContainer m_dataLinks = new DataLinkContainer();
    private final ExternalProjectContainer m_externalProjects = new ExternalProjectContainer(this);
    private final ProjectFile[] m_baselines = new ProjectFile[11];
+   private final BaselineDefinition[] m_baselineDefinitions = new BaselineDefinition[11];
    private final Map<Integer, Map<Task, Task>> m_baselineTaskMap = new HashMap<>();
    private final List<Exception> m_ignoredErrors = new ArrayList<>();
    private final Map<String, ObjectSequence> m_uniqueIdObjectSequences = new HashMap<>();

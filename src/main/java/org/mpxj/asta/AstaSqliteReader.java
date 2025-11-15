@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.mpxj.BaselineDefinition;
 import org.mpxj.DayType;
 import org.mpxj.MPXJException;
 import org.mpxj.ProjectFile;
@@ -461,7 +462,7 @@ public class AstaSqliteReader extends AbstractProjectFileReader
             Row currentRow = baselineRows.remove(currentBaselineProjectID);
             if (currentRow != null)
             {
-               baselineIndex = attachBaseline(project, currentRow, currentBaselineProjectID, baselineIndex);
+               baselineIndex = attachBaseline(project, currentRow, currentBaselineProjectID, baselineIndex, currentBaselineProjectID);
             }
          }
 
@@ -472,7 +473,7 @@ public class AstaSqliteReader extends AbstractProjectFileReader
                break;
             }
 
-            baselineIndex = attachBaseline(project, entry.getValue(), entry.getKey(), baselineIndex);
+            baselineIndex = attachBaseline(project, entry.getValue(), entry.getKey(), baselineIndex, currentBaselineProjectID);
          }
       }
 
@@ -512,7 +513,7 @@ public class AstaSqliteReader extends AbstractProjectFileReader
       return map;
    }
 
-   private int attachBaseline(ProjectFile project, Row summaryRow, Integer baselineProjectID, int index) throws MPXJException
+   private int attachBaseline(ProjectFile project, Row summaryRow, Integer baselineProjectID, int index, Integer currentBaselineProjectID) throws MPXJException
    {
       ProjectFile baselineProject = read(baselineProjectID);
       if (summaryRow != null)
@@ -534,7 +535,39 @@ public class AstaSqliteReader extends AbstractProjectFileReader
       }
 
       project.setBaseline(baselineProject, index);
+      BaselineDefinition definition = buildBaselineDefinition(summaryRow, baselineProjectID, index, currentBaselineProjectID);
+      if (definition != null)
+      {
+         project.setBaselineDefinition(index, definition);
+      }
       return index + 1;
+   }
+
+   private BaselineDefinition buildBaselineDefinition(Row summaryRow, Integer baselineProjectID, int slotIndex, Integer currentBaselineProjectID)
+   {
+      if (summaryRow == null)
+      {
+         return null;
+      }
+
+      Integer baselineId = summaryRow.getInteger("BASELINE_ID");
+      Integer recordId = summaryRow.getInteger("ID");
+      Integer dataSourceId = summaryRow.getInteger("DATA_SOURCE_ID");
+      Integer revertingToBaselineId = summaryRow.getInteger("SPARE_INTEGER");
+      String name = summaryRow.getString("NAME");
+      String description = summaryRow.getString("DESCRIPTION");
+      String pathname = summaryRow.getString("PATHNAME");
+      LocalDateTime created = summaryRow.getDate("CREATION_DATE");
+      LocalDateTime updated = summaryRow.getDate("UPDATE_DATE");
+      Integer activeValue = summaryRow.getInteger("ACTIVE");
+      boolean active = activeValue == null || activeValue.intValue() != 0;
+      boolean deleted = !active;
+      Integer importedValue = summaryRow.getInteger("IS_IMPORTED");
+      boolean imported = importedValue != null && importedValue.intValue() != 0;
+      boolean current = currentBaselineProjectID != null && currentBaselineProjectID.equals(baselineProjectID);
+      String guid = summaryRow.getString("GUID");
+
+      return new BaselineDefinition(slotIndex, baselineId, recordId, baselineProjectID, dataSourceId, name, description, pathname, created, updated, active, deleted, current, imported, revertingToBaselineId, guid);
    }
 
    private void processCodeLibraries() throws SQLException
