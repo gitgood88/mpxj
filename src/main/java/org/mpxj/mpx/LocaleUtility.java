@@ -95,14 +95,14 @@ final class LocaleUtility
     */
    private static final Locale[] SUPPORTED_LOCALES =
    {
-      new Locale("EN"),
-      new Locale("DE"),
-      new Locale("FR"),
-      new Locale("IT"),
-      new Locale("PT"),
-      new Locale("SV"),
-      new Locale("ZH"),
-      new Locale("ES"),
-      new Locale("RU")
+      Locale.of("EN"),
+      Locale.of("DE"),
+      Locale.of("FR"),
+      Locale.of("IT"),
+      Locale.of("PT"),
+      Locale.of("SV"),
+      Locale.of("ZH"),
+      Locale.of("ES"),
+      Locale.of("RU")
    };
 }

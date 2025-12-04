@@ -162,7 +162,7 @@ public final class MPPReader extends AbstractProjectStreamReader
          {
             throw new MPXJException(MPXJException.INVALID_FILE + ": " + format);
          }
-         MPPVariantReader reader = readerClass.newInstance();
+         MPPVariantReader reader = readerClass.getDeclaredConstructor().newInstance();
          reader.process(this, projectFile, root);
 
          //
@@ -250,7 +250,7 @@ public final class MPPReader extends AbstractProjectStreamReader
          return (projectFile);
       }
 
-      catch (IOException | InstantiationException | IllegalAccessException ex)
+      catch (IOException | InstantiationException | IllegalAccessException | NoSuchMethodException | java.lang.reflect.InvocationTargetException ex)
       {
          throw new MPXJException(MPXJException.READ_ERROR, ex);
       }

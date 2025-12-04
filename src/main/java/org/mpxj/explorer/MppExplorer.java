@@ -80,7 +80,7 @@ public class MppExplorer
    {
       m_frame = new JFrame();
       m_frame.setBounds(100, 100, 900, 451);
-      m_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      m_frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
       m_frame.getContentPane().setLayout(new GridLayout(1, 0, 0, 0));
 
       final FileChooserModel fileChooserModel = new FileChooserModel();

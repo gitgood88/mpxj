@@ -228,7 +228,7 @@ public class WebServicesReader
 
       try
       {
-         URL url = new URL(m_url + "/restapi/login?DatabaseName=" + m_databaseName);
+         URL url = java.net.URI.create(m_url + "/restapi/login?DatabaseName=" + m_databaseName).toURL();
          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
          connection.setRequestMethod("POST");
 
@@ -362,7 +362,7 @@ public class WebServicesReader
     */
    private HttpURLConnection createConnection(String path, String accept) throws IOException
    {
-      URL url = new URL(m_url + "/restapi/" + path);
+      URL url = java.net.URI.create(m_url + "/restapi/" + path).toURL();
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Accept", accept);
       connection.setRequestProperty("Accept-Encoding", "gzip");

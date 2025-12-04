@@ -141,7 +141,7 @@ public final class SDEFReader extends AbstractProjectStreamReader implements Has
       SDEFRecord record;
       try
       {
-         record = klass.newInstance();
+         record = klass.getDeclaredConstructor().newInstance();
       }
 
       catch (Exception e)

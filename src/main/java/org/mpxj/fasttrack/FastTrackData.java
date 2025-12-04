@@ -299,7 +299,7 @@ class FastTrackData
             klass = UnknownColumn.class;
          }
 
-         FastTrackColumn column = (FastTrackColumn) klass.newInstance();
+         FastTrackColumn column = (FastTrackColumn) klass.getDeclaredConstructor().newInstance();
          m_currentColumn = column;
 
          logColumnData(startIndex, length);

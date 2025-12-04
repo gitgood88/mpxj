@@ -811,7 +811,7 @@ public class ProjectTreeController
             throw new IllegalArgumentException("Cannot write files of type: " + type);
          }
 
-         ProjectWriter writer = fileClass.newInstance();
+         ProjectWriter writer = fileClass.getDeclaredConstructor().newInstance();
          if (fileClass == JsonWriter.class)
          {
             ((JsonWriter) writer).setPretty(true);

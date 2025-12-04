@@ -201,7 +201,7 @@ public final class AstaTextFileReader extends AbstractProjectStreamReader
 
       try
       {
-         AbstractFileFormat format = fileFormatClass.newInstance();
+         AbstractFileFormat format = fileFormatClass.getDeclaredConstructor().newInstance();
          m_tableDefinitions = format.tableDefinitions();
          m_epochDateFormat = format.epochDateFormat();
       }

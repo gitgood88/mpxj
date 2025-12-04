@@ -81,7 +81,7 @@ public final class ProjectReaderUtility
 
       try
       {
-         return (fileClass.newInstance());
+         return (fileClass.getDeclaredConstructor().newInstance());
       }
 
       catch (Exception ex)

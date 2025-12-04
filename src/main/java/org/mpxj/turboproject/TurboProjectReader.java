@@ -145,7 +145,7 @@ public final class TurboProjectReader extends AbstractProjectStreamReader
          Table table;
          try
          {
-            table = tableClass.newInstance();
+            table = tableClass.getDeclaredConstructor().newInstance();
          }
 
          catch (Exception ex)

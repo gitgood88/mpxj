@@ -634,7 +634,7 @@ public class CustomerDataTest
 
          if (name.contains(".SV."))
          {
-            m_mpxReader.setLocale(new Locale("sv"));
+            m_mpxReader.setLocale(Locale.of("sv"));
          }
 
          projects = m_mpxReader.readAll(file);
@@ -751,7 +751,7 @@ public class CustomerDataTest
 
       boolean success = true;
 
-      ProjectWriter writer = writerClass.newInstance();
+      ProjectWriter writer = writerClass.getDeclaredConstructor().newInstance();
 
       if (config != null)
       {

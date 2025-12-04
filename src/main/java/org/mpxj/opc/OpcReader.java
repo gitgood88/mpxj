@@ -454,7 +454,7 @@ public class OpcReader
 
       try
       {
-         URL url = new URL("https://" + m_host + "/primediscovery/apitoken/request?scope=http://" + m_host + "/api");
+         URL url = java.net.URI.create("https://" + m_host + "/primediscovery/apitoken/request?scope=http://" + m_host + "/api").toURL();
          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
          connection.setRequestMethod("POST");
          connection.setRequestProperty("Accept", "application/json");
@@ -550,7 +550,7 @@ public class OpcReader
     */
    private HttpURLConnection createConnection(String path, String accept) throws IOException
    {
-      URL url = new URL("https://" + m_host + "/api/restapi/" + path);
+      URL url = java.net.URI.create("https://" + m_host + "/api/restapi/" + path).toURL();
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Accept", accept);
       connection.setRequestProperty("Accept-Encoding", "gzip");

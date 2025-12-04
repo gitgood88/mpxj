@@ -594,7 +594,7 @@ public class PwaReader
    {
       try
       {
-         URL url = new URL(m_host + "/_api/" + path);
+         URL url = java.net.URI.create(m_host + "/_api/" + path).toURL();
          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
          connection.setRequestProperty("Accept", "application/json");
          connection.setRequestProperty("Accept-Encoding", "gzip");
